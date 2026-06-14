@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy Birthday Bavya 🕷️💜</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0610;
+    --bg2: #110d1a;
+    --purple-deep: #3b0764;
+    --purple-mid: #7c3aed;
+    --purple-light: #a855f7;
+    --purple-glow: #c084fc;
+    --pink: #ec4899;
+    --gold: #f59e0b;
+    --white: #f5f0ff;
+    --muted: #9d8ec7;
+    --card-bg: #1a1028;
+    --card-border: rgba(168,85,247,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ── Stars background ── */
+  #stars-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Floating emojis ── */
+  .floater {
+    position: fixed;
+    font-size: 1.4rem;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatUp linear infinite;
+    opacity: 0;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.8; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* ── Sections ── */
+  section { position: relative; z-index: 2; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.18) 0%, transparent 70%);
+  }
+
+  .spider-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    animation: spiderPulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(168,85,247,0.8));
+  }
+  @keyframes spiderPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--purple-glow);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeInDown 1s ease 0.3s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 700;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--purple-glow) 0%, var(--pink) 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeInDown 1s ease 0.6s forwards;
+  }
+
+  .hero-nickname {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 3vw, 1.6rem);
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    opacity: 0;
+    animation: fadeInDown 1s ease 0.9s forwards;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--muted);
+    margin-top: 1.5rem;
+    opacity: 0;
+    animation: fadeInDown 1s ease 1.2s forwards;
+  }
+
+  .scroll-hint {
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeIn 1s ease 2s forwards;
+    color: var(--muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+  }
+  .scroll-hint span {
+    display: block;
+    margin-top: 0.5rem;
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ── COUNTDOWN ── */
+  .countdown-section {
+    padding: 5rem 2rem;
+    text-align: center;
+    background: linear-gradient(180deg, transparent 0%, rgba(124,58,237,0.07) 50%, transparent 100%);
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 1.2rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom: 2.5rem;
+    color: var(--white);
+  }
+
+  .countdown-grid {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .countdown-box {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    min-width: 110px;
+    box-shadow: 0 0 30px rgba(168,85,247,0.1);
+    transition: box-shadow 0.3s;
+  }
+  .countdown-box:hover {
+    box-shadow: 0 0 40px rgba(168,85,247,0.25);
+  }
+
+  .countdown-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--purple-glow), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .countdown-lbl {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+
+  /* Birthday message state */
+  .birthday-msg {
+    display: none;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    background: linear-gradient(135deg, var(--purple-glow), var(--pink), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from { filter: brightness(1); }
+    to   { filter: brightness(1.3); }
+  }
+
+  /* ── SORRY LETTER ── */
+  .letter-section {
+    padding: 5rem 2rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .letter-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    max-width: 680px;
+    width: 100%;
+    padding: 3rem;
+    box-shadow: 0 0 60px rgba(168,85,247,0.12);
+    position: relative;
+    overflow: hidden;
+  }
+  .letter-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(168,85,247,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .letter-from {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .letter-body {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: #d4c8f0;
+    font-style: italic;
+  }
+
+  .letter-sign {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .letter-sign-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--purple-glow);
+  }
+  .letter-sign-emoji { font-size: 1.3rem; }
+
+  /* ── PHOTOS ── */
+  .photos-section {
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+
+  .photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.2rem;
+    max-width: 1100px;
+    margin: 2.5rem auto 0;
+  }
+
+  .photo-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    cursor: pointer;
+    border: 1px solid var(--card-border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .photo-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(168,85,247,0.3);
+  }
+  .photo-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+  }
+  .photo-card:hover img { transform: scale(1.06); }
+  .photo-card .photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(59,7,100,0.7) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+  }
+  .photo-card:hover .photo-overlay { opacity: 1; }
+  .photo-overlay-emoji { font-size: 1.5rem; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5,3,12,0.95);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 0 80px rgba(168,85,247,0.4);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    background: none;
+    border: 1px solid rgba(168,85,247,0.4);
+    color: var(--white);
+    border-radius: 50%;
+    width: 44px; height: 44px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lightbox-close:hover { background: rgba(168,85,247,0.3); }
+
+  /* ── WISHES ── */
+  .wishes-section {
+    padding: 5rem 2rem;
+    text-align: center;
+    background: linear-gradient(180deg, transparent 0%, rgba(124,58,237,0.07) 50%, transparent 100%);
+  }
+
+  .wishes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    max-width: 900px;
+    margin: 2.5rem auto 0;
+  }
+
+  .wish-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: left;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .wish-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(168,85,247,0.2);
+  }
+  .wish-emoji { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
+  .wish-text { font-size: 0.95rem; color: #c4b8e8; line-height: 1.6; }
+
+  
+#musicBtn{
+  position:fixed;bottom:20px;right:20px;width:60px;height:60px;border:none;
+  border-radius:50%;background:#7c3aed;color:white;font-size:24px;cursor:pointer;
+  z-index:9999;box-shadow:0 0 20px rgba(168,85,247,.5);
+}
+#musicBtn:hover{transform:scale(1.1);}
+
+/* ── FOOTER ── */
+  .footer {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(168,85,247,0.1);
+  }
+  .footer-big {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .footer-sub { color: var(--muted); font-size: 0.9rem; }
+  .footer-emoji { font-size: 2rem; margin-top: 1.5rem; display: block; letter-spacing: 0.3em; }
+
+  /* ── Animations ── */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 600px) {
+    .letter-card { padding: 2rem 1.5rem; }
+    .countdown-box { min-width: 80px; padding: 1rem 1.2rem; }
+    .countdown-num { font-size: 2.2rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<audio id="bgMusic" loop>
+  <source src="./music/song.mp3" type="audio/mpeg">
+</audio>
+<button id="musicBtn">🎵</button>
+
+<canvas id="stars-canvas"></canvas>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="spider-icon">🕷️</div>
+  <p class="hero-eyebrow">A special page just for you ✨</p>
+  <h1 class="hero-name">Bavya</h1>
+  <p class="hero-nickname">Spidey 🕸️</p>
+  <p class="hero-sub">Your day is almost here — and it deserves something special 💜</p>
+  <div class="scroll-hint">
+    scroll down
+    <span>▾</span>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section reveal">
+  <p class="section-label">Counting down to</p>
+  <h2 class="section-title">June 24 — Your Birthday 🎂</h2>
+
+  <div id="countdown-grid" class="countdown-grid">
+    <div class="countdown-box">
+      <div class="countdown-num" id="cd-days">--</div>
+      <div class="countdown-lbl">Days</div>
+    </div>
+    <div class="countdown-box">
+      <div class="countdown-num" id="cd-hours">--</div>
+      <div class="countdown-lbl">Hours</div>
+    </div>
+    <div class="countdown-box">
+      <div class="countdown-num" id="cd-mins">--</div>
+      <div class="countdown-lbl">Minutes</div>
+    </div>
+    <div class="countdown-box">
+      <div class="countdown-num" id="cd-secs">--</div>
+      <div class="countdown-lbl">Seconds</div>
+    </div>
+  </div>
+
+  <div class="birthday-msg" id="birthday-msg">
+    🎉 It's Your Birthday, Bavya! 🎂💜🕷️
+  </div>
+</section>
+
+<!-- SORRY LETTER -->
+<section class="letter-section reveal">
+  <div class="letter-card">
+    <p class="letter-from">✉️ A letter from Praveen (Batman) to Bavya (Spidey)</p>
+    <p class="letter-body">
+      Hey Spidey... 💜<br><br>
+      I'm sorry for going quiet on you. I didn't reach out, I didn't talk to anyone —
+      not because I stopped caring, but because I was scared.
+      I didn't know what I was doing with life, didn't know where I was headed,
+      and I was afraid of everything. So I just... disappeared.<br><br>
+      That wasn't fair to you. You didn't deserve the silence.<br><br>
+      You've always been one of the realest people in my life,
+      and I never want to take that for granted again.
+      I'm sorry, Bavya. Truly. 🙏<br><br>
+      On your birthday, I just want you to know —
+      Batman always has Spidey's back. Always. 🦇🕷️
+    </p>
+    <div class="letter-sign">
+      <span class="letter-sign-emoji">🦇</span>
+      <span class="letter-sign-name">— Praveen (Batman)</span>
+      <span class="letter-sign-emoji">💜</span>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOS -->
+<section class="photos-section reveal">
+  <p class="section-label">memories we made</p>
+  <h2 class="section-title">Us, Through the Years 📸</h2>
+
+  <div class="photos-grid" id="photos-grid"></div>
+</section>
+
+<!-- WISHES -->
+<section class="wishes-section reveal">
+  <p class="section-label">from the heart</p>
+  <h2 class="section-title">Birthday Wishes for You 🌟</h2>
+
+  <div class="wishes-grid">
+    <div class="wish-card">
+      <span class="wish-emoji">🕷️</span>
+      <p class="wish-text">May you swing through life with the confidence of Spidey — fearless, fast, and always landing on your feet.</p>
+    </div>
+    <div class="wish-card">
+      <span class="wish-emoji">💜</span>
+      <p class="wish-text">Wishing you a year full of love, laughter, and all the things that make your heart feel light.</p>
+    </div>
+    <div class="wish-card">
+      <span class="wish-emoji">✨</span>
+      <p class="wish-text">May every dream you've kept quiet finally start to get loud. This is your year, Bavya.</p>
+    </div>
+    <div class="wish-card">
+      <span class="wish-emoji">🎂</span>
+      <p class="wish-text">Happy Birthday! May the cake be sweet, the day be magical, and the memories last forever.</p>
+    </div>
+    <div class="wish-card">
+      <span class="wish-emoji">🌸</span>
+      <p class="wish-text">You deserve every beautiful thing coming your way. Don't forget how special you truly are.</p>
+    </div>
+    <div class="wish-card">
+      <span class="wish-emoji">🕸️</span>
+      <p class="wish-text">No matter where life takes us, our friendship is woven tight — like a spider's web. Unbreakable. 💜</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="wishes-section reveal">
+<p class="section-label">things i admire</p>
+<h2 class="section-title">Reasons You're Amazing 💜</h2>
+<div class="wishes-grid">
+<div class="wish-card"><span class="wish-emoji">💜</span><p class="wish-text">Your kindness makes people feel safe.</p></div>
+<div class="wish-card"><span class="wish-emoji">🕷️</span><p class="wish-text">Your weird humor always makes me laugh.</p></div>
+<div class="wish-card"><span class="wish-emoji">✨</span><p class="wish-text">You're honest even when it's difficult.</p></div>
+<div class="wish-card"><span class="wish-emoji">🌸</span><p class="wish-text">Your smile can brighten a bad day.</p></div>
+<div class="wish-card"><span class="wish-emoji">🦋</span><p class="wish-text">You are patient with people you care about.</p></div>
+<div class="wish-card"><span class="wish-emoji">🌟</span><p class="wish-text">You never stop trying even when life gets hard.</p></div>
+<div class="wish-card"><span class="wish-emoji">🎀</span><p class="wish-text">You make ordinary moments feel special.</p></div>
+<div class="wish-card"><span class="wish-emoji">💫</span><p class="wish-text">Your energy stays with people long after you leave.</p></div>
+<div class="wish-card"><span class="wish-emoji">🌈</span><p class="wish-text">You always bring color into people's lives.</p></div>
+<div class="wish-card"><span class="wish-emoji">🕸️</span><p class="wish-text">Being your friend is something I'll always appreciate.</p></div>
+</div></section>
+
+<section class="reveal" style="padding:80px 20px;text-align:center;">
+<p class="section-label">one last thing...</p>
+<button id="surpriseBtn" style="padding:18px 35px;border:none;border-radius:50px;background:#7c3aed;color:white;font-size:1rem;cursor:pointer;">
+💌 Open Final Message
+</button>
+<div id="surpriseMessage" style="display:none;margin-top:40px;font-size:1.4rem;line-height:1.8;color:#f5f0ff;">
+I missed my friend. 💜<br><br>
+Happy Birthday, Spidey. 🕷️<br><br>
+No matter how much time passes,<br>
+Batman will always have Spidey's back. 🦇✨
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer reveal">
+  <p class="footer-big">Happy Birthday, Bavya (Spidey)! 🕷️</p>
+  <p class="footer-sub">Made with love by Praveen (Batman) 🦇 · June 24</p>
+  <span class="footer-emoji">🕷️🕸️💜🌸🎂🎉💫✨🦇</span>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lb-close">✕</button>
+  <img src="" id="lb-img" alt="memory" />
+</div>
+
+<script>
+// ── Stars canvas ──
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+for (let i = 0; i < 160; i++) {
+  stars.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: Math.random() * 1.4 + 0.3,
+    a: Math.random(),
+    speed: Math.random() * 0.008 + 0.003,
+    phase: Math.random() * Math.PI * 2
+  });
+}
+
+function drawStars(t) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  stars.forEach(s => {
+    const alpha = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(200, 180, 255, ${alpha})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+requestAnimationFrame(drawStars);
+
+// ── Floating emojis ──
+const emojiSet = ['🕷️','🕸️','💜','🌸','🎂','🎉','💫','✨','🦋','🎈'];
+function spawnFloater() {
+  const el = document.createElement('div');
+  el.className = 'floater';
+  el.textContent = emojiSet[Math.floor(Math.random() * emojiSet.length)];
+  el.style.left = Math.random() * 100 + 'vw';
+  const dur = 8 + Math.random() * 10;
+  el.style.animationDuration = dur + 's';
+  el.style.animationDelay = Math.random() * 3 + 's';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), (dur + 3) * 1000);
+}
+setInterval(spawnFloater, 1800);
+for (let i = 0; i < 6; i++) spawnFloater();
+
+// ── Countdown ──
+function updateCountdown() {
+  const now = new Date();
+  const year = now.getFullYear();
+  let target = new Date(year, 5, 24, 0, 0, 0); // June 24
+  if (now >= target) {
+    // Check if today IS June 24
+    if (now.getMonth() === 5 && now.getDate() === 24) {
+      document.getElementById('countdown-grid').style.display = 'none';
+      document.getElementById('birthday-msg').style.display = 'block';
+      return;
+    }
+    target = new Date(year + 1, 5, 24, 0, 0, 0);
+  }
+
+  const diff = target - now;
+  const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+  document.getElementById('cd-days').textContent  = String(days).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+  document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+  document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── Photos ──
+const photos = [
+  './images/photo1.jpeg',
+  './images/photo2.jpeg',
+  './images/photo3.jpeg',
+  './images/photo4.jpeg',
+  './images/photo5.jpeg',
+  './images/photo6.jpeg',
+  './images/photo7.jpeg',
+  './images/photo8.jpeg',
+  './images/photo9.jpeg',
+  './images/photo10.jpeg',
+  './images/photo11.jpeg',
+  './images/photo12.jpeg',
+  './images/photo13.jpeg',
+  './images/photo14.jpeg',
+  './images/photo15.jpeg',
+  './images/photo16.jpeg',
+  './images/photo17.jpeg'
+];
+
+const overlayEmojis = [
+  '💜','🕷️','✨','🌸','🎂','🎉','💫','🕸️',
+  '🦋','🌟','💜','✨','🎈','🌸','💖','🎂','🕷️'
+];
+
+const grid = document.getElementById('photos-grid');
+
+photos.forEach((src, i) => {
+  const card = document.createElement('div');
+  card.className = 'photo-card';
+
+  card.innerHTML = `
+    <img
+      src="${src}"
+      alt="Memory ${i + 1}"
+      loading="lazy"
+      onerror="this.src='https://via.placeholder.com/600x450?text=Photo+Missing'"
+    />
+    <div class="photo-overlay">
+      <span class="photo-overlay-emoji">
+        ${overlayEmojis[i % overlayEmojis.length]}
+      </span>
+    </div>
+  `;
+
+  card.addEventListener('click', () => openLightbox(src));
+  grid.appendChild(card);
+});
+
+// ── Lightbox ──
+const lightbox = document.getElementById('lightbox');
+const lbImg    = document.getElementById('lb-img');
+const lbClose  = document.getElementById('lb-close');
+
+function openLightbox(src) {
+  lbImg.src = src;
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── Scroll reveal ──
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(r => obs.observe(r));
+
+const music=document.getElementById('bgMusic');
+const musicBtn=document.getElementById('musicBtn');
+let playing=false;
+musicBtn.addEventListener('click',()=>{
+ if(playing){music.pause();musicBtn.textContent='🎵';}
+ else{music.play();musicBtn.textContent='⏸️';}
+ playing=!playing;
+});
+
+const surpriseBtn=document.getElementById('surpriseBtn');
+const surpriseMessage=document.getElementById('surpriseMessage');
+if(surpriseBtn){
+ surpriseBtn.addEventListener('click',()=>{
+  surpriseMessage.style.display='block';
+  music.play();
+  for(let i=0;i<50;i++){
+   const c=document.createElement('div');
+   c.innerHTML=['🎉','💜','✨','🕷️','🎂'][Math.floor(Math.random()*5)];
+   c.style.position='fixed';
+   c.style.left=Math.random()*100+'vw';
+   c.style.top='-20px';
+   c.style.fontSize='24px';
+   c.style.zIndex='9999';
+   document.body.appendChild(c);
+   c.animate([{transform:'translateY(0)'},{transform:'translateY(100vh)'}],
+   {duration:3000+Math.random()*2000});
+   setTimeout(()=>c.remove(),5000);
+  }
+ });
+}
+
+</script>
+</body>
+</html>
